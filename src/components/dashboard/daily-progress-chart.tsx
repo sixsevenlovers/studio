@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { PieChart, Pie, Cell } from 'recharts';
 import { useMemo } from 'react';
-import { isToday, isWeekend, isWeekday, parseISO } from 'date-fns';
+import { isToday, isWeekend, parseISO } from 'date-fns';
 
 export function DailyProgressChart() {
   const { habits, isCompletedToday } = useHabit();
@@ -17,7 +17,7 @@ export function DailyProgressChart() {
         case 'daily':
           return true;
         case 'weekdays':
-          return isWeekday(today);
+          return !isWeekend(today);
         case 'weekends':
           return isWeekend(today);
         case 'weekly':
