@@ -1,5 +1,4 @@
 import type { Achievement } from "@/lib/types";
-import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { CheckCircle, Lock } from "lucide-react";
@@ -28,14 +27,9 @@ export function AchievementCard({ achievement, isUnlocked }: AchievementCardProp
         </div>
       )}
       <CardHeader className="flex flex-row items-center gap-4 space-y-0 pb-2">
-         <Image
-            src={achievement.image.imageUrl}
-            alt={achievement.title}
-            width={64}
-            height={64}
-            className={cn("rounded-full", !isUnlocked && "grayscale opacity-60")}
-            data-ai-hint={achievement.image.imageHint}
-          />
+         <div className={cn("text-4xl", !isUnlocked && "grayscale opacity-60")}>
+            {achievement.emoji}
+         </div>
         <div>
           <CardTitle>{achievement.title}</CardTitle>
           <CardDescription className="mt-1">{achievement.description}</CardDescription>
