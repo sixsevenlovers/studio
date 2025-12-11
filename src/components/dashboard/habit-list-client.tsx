@@ -9,7 +9,7 @@ export function HabitListClient() {
 
   if (loading) {
     return (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4">
             {[...Array(3)].map((_, i) => (
                 <Skeleton key={i} className="h-44 w-full" />
             ))}
@@ -20,7 +20,7 @@ export function HabitListClient() {
   const sortedHabits = [...habits].sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-4">
       {sortedHabits.map(habit => (
         <HabitItem key={habit.id} habit={habit} />
       ))}
