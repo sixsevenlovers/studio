@@ -17,7 +17,7 @@ import type { NavItem } from "@/lib/types"
 import { LayoutDashboard, Lightbulb, Trophy, Github, LineChart } from "lucide-react"
 
 const navItems: NavItem[] = [
-    { href: "/", title: "Dashboard", icon: LayoutDashboard },
+    { href: "/", title: "Your Routine", icon: LayoutDashboard },
     { href: "/progress", title: "Daily Progress", icon: LineChart },
     { href: "/suggest", title: "AI Suggestions", icon: Lightbulb },
     { href: "/achievements", title: "Achievements", icon: Trophy },
