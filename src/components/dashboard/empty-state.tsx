@@ -1,7 +1,4 @@
 import { AddHabitDialog } from './add-habit-dialog';
-import { Lightbulb } from 'lucide-react';
-import Link from 'next/link';
-import { Button } from '../ui/button';
 
 export function EmptyState() {
   return (
@@ -11,16 +8,10 @@ export function EmptyState() {
           You have no habits yet
         </h3>
         <p className="text-sm text-muted-foreground max-w-md">
-          Start building a better you. Add your first habit or get some AI-powered suggestions to get started.
+          Start building a better you by adding your first habit.
         </p>
         <div className="flex gap-4">
           <AddHabitDialog />
-          <Button variant="outline" asChild>
-            <Link href="/suggest">
-                <Lightbulb className="mr-2" />
-                Get Suggestions
-            </Link>
-          </Button>
         </div>
       </div>
     </div>
