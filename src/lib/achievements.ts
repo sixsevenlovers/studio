@@ -44,6 +44,14 @@ export const achievements: Achievement[] = [
     isUnlocked: (habits: Habit[]) => habits.some(h => h.completions.length > 0),
   },
   {
+    id: 'habit-collector',
+    title: 'Habit Collector',
+    description: 'Create at least 5 different habits.',
+    emoji: '📚',
+    difficulty: 'easy',
+    isUnlocked: (habits: Habit[]) => habits.length >= 5,
+  },
+  {
     id: '7-day-streak',
     title: 'Week-long Warrior',
     description: 'Maintain a 7-day streak for any habit.',
@@ -71,6 +79,17 @@ export const achievements: Achievement[] = [
     }
   },
   {
+    id: 'night-owl',
+    title: 'Night Owl',
+    description: 'Complete an evening habit 10 times.',
+    emoji: '🌙',
+    difficulty: 'medium',
+    isUnlocked: (habits: Habit[]) => {
+        const eveningHabits = habits.filter(h => h.timeOfDay === 'evening');
+        return eveningHabits.some(h => h.completions.length >= 10);
+    }
+  },
+  {
     id: 'perfect-week',
     title: 'Perfect Week',
     description: 'Complete all your daily habits for 7 consecutive days.',
@@ -80,6 +99,18 @@ export const achievements: Achievement[] = [
       const dailyHabits = habits.filter(h => h.frequency === 'daily');
       if(dailyHabits.length === 0) return false;
       return dailyHabits.every(h => getStreak(h.completions) >= 7);
+    }
+  },
+  {
+    id: 'perfect-month',
+    title: 'Perfect Month',
+    description: 'Complete all your daily habits for 30 consecutive days.',
+    emoji: '🏅',
+    difficulty: 'hard',
+    isUnlocked: (habits: Habit[]) => {
+        const dailyHabits = habits.filter(h => h.frequency === 'daily');
+        if (dailyHabits.length === 0) return false;
+        return dailyHabits.every(h => getStreak(h.completions) >= 30);
     }
   },
   {
