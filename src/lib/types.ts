@@ -19,6 +19,7 @@ export type Achievement = {
   title: string;
   description: string;
   image: ImagePlaceholder;
+  difficulty: 'easy' | 'medium' | 'hard';
   isUnlocked: (habits: Habit[]) => boolean;
 };
 

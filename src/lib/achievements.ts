@@ -45,6 +45,7 @@ export const achievements: Achievement[] = [
     title: 'First Step',
     description: 'Complete any habit for the first time.',
     image: getImage('first-habit-completed'),
+    difficulty: 'easy',
     isUnlocked: (habits: Habit[]) => habits.some(h => h.completions.length > 0),
   },
   {
@@ -52,6 +53,7 @@ export const achievements: Achievement[] = [
     title: 'Week-long Warrior',
     description: 'Maintain a 7-day streak for any habit.',
     image: getImage('7-day-streak'),
+    difficulty: 'easy',
     isUnlocked: (habits: Habit[]) => habits.some(h => getStreak(h.completions) >= 7),
   },
   {
@@ -59,6 +61,7 @@ export const achievements: Achievement[] = [
     title: 'Month of Mastery',
     description: 'Maintain a 30-day streak for any habit.',
     image: getImage('30-day-streak'),
+    difficulty: 'medium',
     isUnlocked: (habits: Habit[]) => habits.some(h => getStreak(h.completions) >= 30),
   },
   {
@@ -66,6 +69,7 @@ export const achievements: Achievement[] = [
     title: 'Early Bird',
     description: 'Complete a morning habit 10 times.',
     image: getImage('early-bird'),
+    difficulty: 'medium',
     isUnlocked: (habits: Habit[]) => {
       const morningHabits = habits.filter(h => h.timeOfDay === 'morning');
       return morningHabits.some(h => h.completions.length >= 10);
@@ -76,6 +80,7 @@ export const achievements: Achievement[] = [
     title: 'Perfect Week',
     description: 'Complete all your daily habits for 7 consecutive days.',
     image: getImage('perfect-week'),
+    difficulty: 'hard',
     isUnlocked: (habits: Habit[]) => {
       const dailyHabits = habits.filter(h => h.frequency === 'daily');
       if(dailyHabits.length === 0) return false;
@@ -87,6 +92,7 @@ export const achievements: Achievement[] = [
     title: 'Habit Master',
     description: 'Complete any habit 100 times.',
     image: getImage('habit-master'),
+    difficulty: 'hard',
     isUnlocked: (habits: Habit[]) => habits.some(h => h.completions.length >= 100),
   }
 ];
