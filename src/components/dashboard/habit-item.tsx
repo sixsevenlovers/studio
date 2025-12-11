@@ -5,13 +5,14 @@ import type { Habit } from '@/lib/types';
 import { useHabit } from '@/hooks/use-habit';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Flame, Repeat, CalendarDays, Sunrise, Sun, Sunset, Sparkles, MoreVertical, Trash2 } from 'lucide-react';
+import { Flame, Repeat, CalendarDays, Sunrise, Sun, Sunset, Sparkles, MoreVertical, Trash2, Pencil } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
@@ -25,6 +26,7 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { format, parseISO } from 'date-fns';
+import { EditHabitDialog } from './edit-habit-dialog';
 
 type HabitItemProps = {
   habit: Habit;
@@ -47,6 +49,7 @@ const timeOfDayIcons = {
 export function HabitItem({ habit }: HabitItemProps) {
   const { toggleHabitCompletion, getCompletionForToday, getStreak, deleteHabit } = useHabit();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [showEditDialog, setShowEditDialog] = useState(false);
 
   const completion = useMemo(() => getCompletionForToday(habit.id), [habit.id, getCompletionForToday]);
   const completed = !!completion;
@@ -101,6 +104,11 @@ export function HabitItem({ habit }: HabitItemProps) {
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
+                        <DropdownMenuItem onClick={() => setShowEditDialog(true)}>
+                            <Pencil className="mr-2" />
+                            Edit
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
                         <DropdownMenuItem onClick={() => setShowDeleteConfirm(true)} className="text-destructive">
                             <Trash2 className="mr-2" />
                             Delete
@@ -149,6 +157,13 @@ export function HabitItem({ habit }: HabitItemProps) {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+      {showEditDialog && (
+        <EditHabitDialog 
+            habit={habit} 
+            open={showEditDialog} 
+            onOpenChange={setShowEditDialog} 
+        />
+      )}
     </>
   );
 }

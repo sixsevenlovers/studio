@@ -8,6 +8,7 @@ interface HabitContextType {
   habits: Habit[];
   loading: boolean;
   addHabit: (habitData: Omit<Habit, 'id' | 'createdAt' | 'completions'>) => void;
+  updateHabit: (habitId: string, updates: Partial<Omit<Habit, 'id' | 'createdAt' | 'completions'>>) => void;
   toggleHabitCompletion: (habitId: string, date: Date) => void;
   isCompletedToday: (habitId: string) => boolean;
   getCompletionForToday: (habitId: string) => HabitCompletion | undefined;
@@ -54,6 +55,14 @@ export const HabitProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       completions: [],
     };
     setHabits(prev => [...prev, newHabit]);
+  }, []);
+
+  const updateHabit = useCallback((habitId: string, updates: Partial<Omit<Habit, 'id' | 'createdAt' | 'completions'>>) => {
+    setHabits(prev =>
+      prev.map(habit =>
+        habit.id === habitId ? { ...habit, ...updates } : habit
+      )
+    );
   }, []);
 
   const deleteHabit = useCallback((habitId: string) => {
@@ -129,7 +138,7 @@ export const HabitProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   }, [habits]);
 
   return (
-    <HabitContext.Provider value={{ habits, loading, addHabit, deleteHabit, toggleHabitCompletion, isCompletedToday, getCompletionForToday, getStreak }}>
+    <HabitContext.Provider value={{ habits, loading, addHabit, updateHabit, deleteHabit, toggleHabitCompletion, isCompletedToday, getCompletionForToday, getStreak }}>
       {children}
     </HabitContext.Provider>
   );
