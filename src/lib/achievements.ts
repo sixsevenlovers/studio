@@ -9,32 +9,34 @@ const getImage = (id: string) => {
 };
 
 const getStreak = (completions: { date: string }[]): number => {
-  if (completions.length === 0) return 0;
+    if (completions.length === 0) return 0;
 
-  const sortedDates = completions
-    .map(c => startOfDay(parseISO(c.date)))
-    .sort((a, b) => b.getTime() - a.getTime());
+    const sortedDates = completions
+      .map(c => startOfDay(parseISO(c.date)))
+      .sort((a, b) => b.getTime() - a.getTime());
 
-  const uniqueDates = sortedDates.filter((date, index, self) =>
-    index === self.findIndex(d => isSameDay(d, date))
-  );
+    const uniqueDates = sortedDates.filter((date, index, self) =>
+      index === self.findIndex(d => isSameDay(d, date))
+    );
 
-  let streak = 0;
-  const today = startOfDay(new Date());
+    if (uniqueDates.length === 0) return 0;
 
-  if (uniqueDates.length > 0 && (isSameDay(uniqueDates[0], today) || differenceInCalendarDays(today, uniqueDates[0]) === 1)) {
-    streak = 1;
-    for (let i = 1; i < uniqueDates.length; i++) {
-      const diff = differenceInCalendarDays(uniqueDates[i-1], uniqueDates[i]);
-      if (diff === 1) {
-        streak++;
-      } else {
-        break;
-      }
+    const today = startOfDay(new Date());
+    if (differenceInCalendarDays(today, uniqueDates[0]) > 1) {
+        return 0; // Streak is broken if the last completion was more than a day ago.
     }
-  }
 
-  return streak;
+    let streak = 1;
+    for (let i = 1; i < uniqueDates.length; i++) {
+        const diff = differenceInCalendarDays(uniqueDates[i-1], uniqueDates[i]);
+        if (diff === 1) {
+            streak++;
+        } else {
+            break; // End of consecutive days.
+        }
+    }
+
+    return streak;
 };
 
 export const achievements: Achievement[] = [
