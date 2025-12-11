@@ -26,10 +26,3 @@ export type NavItem = {
   title: string;
   icon: React.ComponentType<{ className?: string }>;
 };
-
-export type FlowerStage = {
-  level: number;
-  name: string;
-  image: ImagePlaceholder;
-  message: string;
-};
