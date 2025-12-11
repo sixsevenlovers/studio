@@ -7,8 +7,8 @@ import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/layout/app-sidebar';
 
 export const metadata: Metadata = {
-  title: 'Habitual',
-  description: 'Build productive habits that last.',
+  title: 'Your Routine Friend',
+  description: 'Your friendly companion for building routines.',
 };
 
 export default function RootLayout({

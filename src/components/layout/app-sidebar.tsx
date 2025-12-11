@@ -30,7 +30,7 @@ export function AppSidebar() {
             <SidebarHeader>
                 <Link href="/" className="flex items-center gap-2">
                     <Logo className="size-7 text-primary" />
-                    <span className="text-lg font-semibold">Habitual</span>
+                    <span className="text-lg font-semibold">Your Routine Friend</span>
                 </Link>
             </SidebarHeader>
             <SidebarContent>
