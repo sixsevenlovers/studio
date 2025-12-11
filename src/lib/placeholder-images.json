@@ -1,3 +1,40 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "7-day-streak",
+      "description": "A badge for maintaining a 7-day streak.",
+      "imageUrl": "https://images.unsplash.com/photo-1613826488066-5a115a53a1fc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxnb2xkJTIwbWVkYWx8ZW58MHx8fHwxNzY1MzA3Nzk4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "gold medal"
+    },
+    {
+      "id": "30-day-streak",
+      "description": "A badge for maintaining a 30-day streak.",
+      "imageUrl": "https://images.unsplash.com/photo-1716175005654-3db82e439475?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxkaWFtb25kJTIwdHJvcGh5fGVufDB8fHx8MTc2NTQyOTE3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "diamond trophy"
+    },
+    {
+      "id": "first-habit-completed",
+      "description": "A badge for completing a habit for the first time.",
+      "imageUrl": "https://images.unsplash.com/photo-1457364887197-9150188c107b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxyb2NrZXQlMjBsYXVuY2h8ZW58MHx8fHwxNzY1MzY2MjU5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "rocket launch"
+    },
+    {
+      "id": "perfect-week",
+      "description": "A badge for completing all habits for 7 consecutive days.",
+      "imageUrl": "https://images.unsplash.com/photo-1718434127037-efa9c3043f7f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxzdGFyJTIwYXdhcmR8ZW58MHx8fHwxNzY1NDI5MTc3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "star award"
+    },
+    {
+      "id": "habit-master",
+      "description": "A badge for completing a habit 100 times.",
+      "imageUrl": "https://images.unsplash.com/photo-1638836177891-d47f6cc7a336?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxjcm93bnxlbnwwfHx8fDE3NjU0MjkxNzd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "crown"
+    },
+    {
+      "id": "early-bird",
+      "description": "A badge for completing a morning habit 10 times.",
+      "imageUrl": "https://images.unsplash.com/photo-1475113548554-5a36f1f523d6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxzdW5yaXNlfGVufDB8fHx8MTc2NTQyOTE3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "sunrise"
+    }
+  ]
 }

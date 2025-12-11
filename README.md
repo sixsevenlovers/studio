@@ -1,5 +1,5 @@
-# Firebase Studio
+# Habitual
 
-This is a NextJS starter in Firebase Studio.
+Welcome to Habitual, an app to help you build new productive habits and track your progress.
 
-To get started, take a look at src/app/page.tsx.
+To get started, run the app and begin by adding your first habit or getting AI-powered suggestions based on your goals.
