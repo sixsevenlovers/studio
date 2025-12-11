@@ -3,10 +3,10 @@
 import type { Habit } from '@/lib/types';
 import { useHabit } from '@/hooks/use-habit';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Flame, Repeat, CalendarDays, Sunrise, Sun, Sunset, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { buttonVariants } from '@/components/ui/button';
 
 type HabitItemProps = {
   habit: Habit;
@@ -23,7 +23,7 @@ const timeOfDayIcons = {
   any: Sparkles,
   morning: Sunrise,
   afternoon: Sun,
-  evening: Sunset,
+evening: Sunset,
 };
 
 export function HabitItem({ habit }: HabitItemProps) {
@@ -60,14 +60,27 @@ export function HabitItem({ habit }: HabitItemProps) {
         </div>
       </CardHeader>
       <CardContent>
-        <Button
-            variant={completed ? "default" : "outline"}
-            className="w-full"
-            onClick={() => toggleHabitCompletion(habit.id, new Date())}
+        <div
+          role="button"
+          tabIndex={0}
+          aria-pressed={completed}
+          onClick={() => toggleHabitCompletion(habit.id, new Date())}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              toggleHabitCompletion(habit.id, new Date());
+            }
+          }}
+          className={cn(
+            buttonVariants({ variant: completed ? "default" : "outline" }),
+            "w-full cursor-pointer"
+          )}
         >
-            <Checkbox checked={completed} className="mr-2" readOnly/>
+          <Checkbox checked={completed} readOnly aria-hidden="true" tabIndex={-1} className="mr-2 pointer-events-none"/>
+          <span>
             {completed ? 'Completed Today!' : 'Mark as Complete'}
-        </Button>
+          </span>
+        </div>
       </CardContent>
     </Card>
   );
