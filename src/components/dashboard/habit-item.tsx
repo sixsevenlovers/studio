@@ -24,6 +24,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import { format } from 'date-fns';
 
 type HabitItemProps = {
   habit: Habit;
@@ -56,6 +57,8 @@ export function HabitItem({ habit }: HabitItemProps) {
     setShowDeleteConfirm(false);
   };
 
+  const today = new Date();
+
   return (
     <>
       <Card className={cn(
@@ -64,9 +67,9 @@ export function HabitItem({ habit }: HabitItemProps) {
       )}>
         <CardHeader>
           <div className="flex justify-between items-start">
-              <div>
-                  <CardTitle className="text-lg pr-8">{habit.name}</CardTitle>
-                  <CardDescription className="flex items-center gap-4 mt-1">
+              <div className='flex-1 pr-4'>
+                  <CardTitle className="text-lg">{habit.name}</CardTitle>
+                  <CardDescription className="flex items-center flex-wrap gap-x-4 gap-y-1 mt-1">
                       <span className="flex items-center gap-1.5 text-xs capitalize">
                           <FrequencyIcon className="size-3.5" />
                           {habit.frequency}
@@ -103,11 +106,11 @@ export function HabitItem({ habit }: HabitItemProps) {
             role="button"
             tabIndex={0}
             aria-pressed={completed}
-            onClick={() => toggleHabitCompletion(habit.id, new Date())}
+            onClick={() => toggleHabitCompletion(habit.id, today)}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-                toggleHabitCompletion(habit.id, new Date());
+                toggleHabitCompletion(habit.id, today);
               }
             }}
             className={cn(
@@ -116,9 +119,10 @@ export function HabitItem({ habit }: HabitItemProps) {
             )}
           >
             <Checkbox checked={completed} readOnly aria-hidden="true" tabIndex={-1} className="mr-2 pointer-events-none"/>
-            <span>
+            <span className="flex-1 text-left">
               {completed ? 'Completed Today!' : 'Mark as Complete'}
             </span>
+            <span className="text-xs opacity-70">{format(today, 'MMM d')}</span>
           </div>
         </CardContent>
       </Card>
