@@ -90,6 +90,38 @@ export const achievements: Achievement[] = [
     }
   },
   {
+    id: '60-day-streak',
+    title: 'Two-Month Titan',
+    description: 'Maintain a 60-day streak for any habit.',
+    emoji: '💪',
+    difficulty: 'hard',
+    isUnlocked: (habits: Habit[]) => habits.some(h => getStreak(h.completions) >= 60),
+  },
+  {
+    id: '90-day-streak',
+    title: 'Three-Month Triumph',
+    description: 'Maintain a 90-day streak for any habit.',
+    emoji: '🎉',
+    difficulty: 'hard',
+    isUnlocked: (habits: Habit[]) => habits.some(h => getStreak(h.completions) >= 90),
+  },
+  {
+    id: '180-day-streak',
+    title: 'Half-Year Hero',
+    description: 'Maintain a 180-day streak for any habit.',
+    emoji: '🦸',
+    difficulty: 'hard',
+    isUnlocked: (habits: Habit[]) => habits.some(h => getStreak(h.completions) >= 180),
+  },
+  {
+    id: '365-day-streak',
+    title: 'Yearly Legend',
+    description: 'Maintain a 365-day streak for any habit.',
+    emoji: '⭐',
+    difficulty: 'hard',
+    isUnlocked: (habits: Habit[]) => habits.some(h => getStreak(h.completions) >= 365),
+  },
+  {
     id: 'perfect-week',
     title: 'Perfect Week',
     description: 'Complete all your daily habits for 7 consecutive days.',
