@@ -1,6 +1,7 @@
 'use client';
 
-import { useFormState, useFormStatus } from 'react-dom';
+import { useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
 import { getHabitSuggestions } from '@/app/suggest/actions';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -29,7 +30,7 @@ function SubmitButton() {
 }
 
 export function HabitSuggester() {
-  const [state, formAction] = useFormState(getHabitSuggestions, initialState);
+  const [state, formAction] = useActionState(getHabitSuggestions, initialState);
   const { addHabit } = useHabit();
   const { toast } = useToast();
 
