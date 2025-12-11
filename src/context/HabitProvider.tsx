@@ -11,6 +11,7 @@ interface HabitContextType {
   toggleHabitCompletion: (habitId: string, date: Date) => void;
   isCompletedToday: (habitId: string) => boolean;
   getStreak: (habitId: string) => number;
+  deleteHabit: (habitId: string) => void;
 }
 
 const HabitContext = createContext<HabitContextType | undefined>(undefined);
@@ -52,6 +53,10 @@ export const HabitProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       completions: [],
     };
     setHabits(prev => [...prev, newHabit]);
+  }, []);
+
+  const deleteHabit = useCallback((habitId: string) => {
+    setHabits(prev => prev.filter(habit => habit.id !== habitId));
   }, []);
 
   const toggleHabitCompletion = useCallback((habitId: string, date: Date) => {
@@ -110,7 +115,7 @@ export const HabitProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   }, [habits]);
 
   return (
-    <HabitContext.Provider value={{ habits, loading, addHabit, toggleHabitCompletion, isCompletedToday, getStreak }}>
+    <HabitContext.Provider value={{ habits, loading, addHabit, deleteHabit, toggleHabitCompletion, isCompletedToday, getStreak }}>
       {children}
     </HabitContext.Provider>
   );
