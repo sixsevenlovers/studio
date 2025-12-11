@@ -28,10 +28,8 @@ export async function getHabitSuggestions(prevState: any, formData: FormData) {
     const input: SuggestHabitsFromGoalInput = {
       goal: validatedFields.data.goal,
       interests: validatedFields.data.interests,
+      calendarEvents: validatedFields.data.calendarEvents,
     };
-    if (validatedFields.data.calendarEvents) {
-      input.calendarEvents = validatedFields.data.calendarEvents;
-    }
 
     const result = await suggestHabitsFromGoal(input);
     return {
