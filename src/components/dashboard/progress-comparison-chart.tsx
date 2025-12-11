@@ -74,8 +74,8 @@ export function ProgressComparisonChart() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Daily Comparison</CardTitle>
-        <CardDescription>Your habit completion for today vs. yesterday.</CardDescription>
+        <CardTitle>Today vs. Yesterday</CardTitle>
+        <CardDescription>Your habit completion percentage compared.</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="h-48 w-full">

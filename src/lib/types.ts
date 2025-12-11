@@ -1,4 +1,5 @@
 import type { ImagePlaceholder } from '@/lib/placeholder-images';
+import { LucideIcon } from 'lucide-react';
 
 export type HabitCompletion = {
   date: string; // ISO 8601 format
@@ -24,5 +25,5 @@ export type Achievement = {
 export type NavItem = {
   href: string;
   title: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: React.ComponentType<{ className?: string }> | LucideIcon;
 };
