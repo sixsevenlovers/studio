@@ -76,8 +76,8 @@ export function HabitItem({ habit }: HabitItemProps) {
       )}>
         <CardHeader>
           <div className="flex justify-between items-start">
-              <div className='flex-1 pr-4'>
-                  <CardTitle className="text-lg">{habit.name}</CardTitle>
+              <div className='flex-1 pr-4 min-w-0'>
+                  <CardTitle className="text-lg overflow-hidden text-ellipsis whitespace-normal">{habit.name}</CardTitle>
                   <CardDescription className="flex items-center flex-wrap gap-x-4 gap-y-1 mt-1">
                       <span className="flex items-center gap-1.5 text-xs capitalize">
                           <FrequencyIcon className="size-3.5" />
