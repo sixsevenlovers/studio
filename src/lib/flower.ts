@@ -37,8 +37,8 @@ export const flowerStages: FlowerStage[] = [
 ];
 
 export const getFlowerStage = (completionPercentage: number): FlowerStage => {
-  if (completionPercentage < 0.33) return flowerStages[0];
-  if (completionPercentage < 0.66) return flowerStages[1];
-  if (completionPercentage < 1) return flowerStages[2];
-  return flowerStages[3];
+  if (completionPercentage >= 1) return flowerStages[3];
+  if (completionPercentage >= 0.66) return flowerStages[2];
+  if (completionPercentage >= 0.33) return flowerStages[1];
+  return flowerStages[0];
 };

@@ -5,8 +5,9 @@ import Image from 'next/image';
 import { useHabit } from '@/hooks/use-habit';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { isToday, isWeekend, parseISO } from 'date-fns';
-import { getFlowerStage } from '@/lib/flower';
+import { getFlowerStage, flowerStages } from '@/lib/flower';
 import { Progress } from '@/components/ui/progress';
+import { cn } from '@/lib/utils';
 
 export function FlowerFriend() {
   const { habits, isCompletedToday } = useHabit();
@@ -36,24 +37,31 @@ export function FlowerFriend() {
   
   const completionPercentage = todaysHabits.length > 0 ? completedCount / todaysHabits.length : 0;
   
-  const stage = getFlowerStage(completionPercentage);
+  const currentStage = getFlowerStage(completionPercentage);
 
   return (
     <Card>
       <CardHeader>
         <CardTitle>Your Flower Friend</CardTitle>
-        <CardDescription>{stage.message}</CardDescription>
+        <CardDescription>{currentStage.message}</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col items-center justify-center gap-4">
         <div className="relative w-48 h-48">
-           <Image
-            src={stage.image.imageUrl}
-            alt={stage.name}
-            width={192}
-            height={192}
-            className="rounded-full object-cover"
-            data-ai-hint={stage.image.imageHint}
-          />
+          {flowerStages.map((stage, index) => (
+            <Image
+              key={stage.level}
+              src={stage.image.imageUrl}
+              alt={stage.name}
+              width={192}
+              height={192}
+              className={cn(
+                "absolute inset-0 rounded-full object-cover transition-opacity duration-700 ease-in-out",
+                currentStage.level >= stage.level ? "opacity-100" : "opacity-0"
+              )}
+              data-ai-hint={stage.image.imageHint}
+              priority={index === 0}
+            />
+          ))}
         </div>
         <div className='w-full space-y-1'>
             <div className='flex justify-between text-sm font-medium text-muted-foreground'>
