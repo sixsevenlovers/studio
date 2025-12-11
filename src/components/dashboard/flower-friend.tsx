@@ -55,8 +55,8 @@ export function FlowerFriend() {
               width={192}
               height={192}
               className={cn(
-                "absolute inset-0 rounded-full object-cover transition-opacity duration-700 ease-in-out",
-                currentStage.level >= stage.level ? "opacity-100" : "opacity-0"
+                "absolute inset-0 object-contain transition-opacity duration-700 ease-in-out",
+                currentStage.level === stage.level ? "opacity-100" : "opacity-0"
               )}
               data-ai-hint={stage.image.imageHint}
               priority={index === 0}
