@@ -3,9 +3,9 @@
 import { useMemo } from 'react';
 import { useHabit } from '@/hooks/use-habit';
 import { isSameDay, isWeekend, subDays, parseISO } from 'date-fns';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ChartContainer, ChartTooltipContent } from '@/components/ui/chart';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 
 export function ProgressComparisonChart() {
   const { habits } = useHabit();
