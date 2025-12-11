@@ -1,13 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import type { Habit } from '@/lib/types';
 import { useHabit } from '@/hooks/use-habit';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Flame, Repeat, CalendarDays, Sunrise, Sun, Sunset, Sparkles, MoreVertical, Trash2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { buttonVariants, Button } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,7 +24,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { format } from 'date-fns';
+import { format, isToday, parseISO } from 'date-fns';
 
 type HabitItemProps = {
   habit: Habit;
@@ -45,9 +45,11 @@ const timeOfDayIcons = {
 };
 
 export function HabitItem({ habit }: HabitItemProps) {
-  const { toggleHabitCompletion, isCompletedToday, getStreak, deleteHabit } = useHabit();
+  const { toggleHabitCompletion, getCompletionForToday, getStreak, deleteHabit } = useHabit();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-  const completed = isCompletedToday(habit.id);
+
+  const completion = useMemo(() => getCompletionForToday(habit.id), [habit.id, getCompletionForToday]);
+  const completed = !!completion;
   const streak = getStreak(habit.id);
   const FrequencyIcon = frequencyIcons[habit.frequency];
   const TimeIcon = timeOfDayIcons[habit.timeOfDay];
@@ -58,6 +60,13 @@ export function HabitItem({ habit }: HabitItemProps) {
   };
 
   const today = new Date();
+
+  const completionTime = useMemo(() => {
+    if (completion) {
+      return parseISO(completion.date);
+    }
+    return null;
+  }, [completion]);
 
   return (
     <>
@@ -106,11 +115,11 @@ export function HabitItem({ habit }: HabitItemProps) {
             role="button"
             tabIndex={0}
             aria-pressed={completed}
-            onClick={() => toggleHabitCompletion(habit.id, today)}
+            onClick={() => toggleHabitCompletion(habit.id, new Date())}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-                toggleHabitCompletion(habit.id, today);
+                toggleHabitCompletion(habit.id, new Date());
               }
             }}
             className={cn(
@@ -120,7 +129,7 @@ export function HabitItem({ habit }: HabitItemProps) {
           >
             <Checkbox checked={completed} readOnly aria-hidden="true" tabIndex={-1} className="mr-2 pointer-events-none"/>
             <span className="flex-1 text-left">
-              {completed ? 'Completed Today!' : 'Mark as Complete'}
+              {completed && completionTime ? `Completed at ${format(completionTime, 'p')}` : 'Mark as Complete'}
             </span>
             <span className="text-xs opacity-70">{format(today, 'MMM d')}</span>
           </div>

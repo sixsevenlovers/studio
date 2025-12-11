@@ -1,4 +1,4 @@
-import type { Achievement, Habit } from '@/lib/types';
+import type { Achievement, Habit, HabitCompletion } from '@/lib/types';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { differenceInCalendarDays, isSameDay, parseISO, startOfDay } from 'date-fns';
 
@@ -8,7 +8,7 @@ const getImage = (id: string) => {
   return img;
 };
 
-const getStreak = (completions: { date: string }[]): number => {
+const getStreak = (completions: HabitCompletion[]): number => {
     if (completions.length === 0) return 0;
 
     const sortedDates = completions

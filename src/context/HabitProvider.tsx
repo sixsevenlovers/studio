@@ -1,6 +1,6 @@
 'use client';
 
-import type { Habit } from '@/lib/types';
+import type { Habit, HabitCompletion } from '@/lib/types';
 import React, { createContext, useState, useEffect, useCallback } from 'react';
 import { differenceInCalendarDays, isSameDay, parseISO, startOfDay } from 'date-fns';
 
@@ -10,6 +10,7 @@ interface HabitContextType {
   addHabit: (habitData: Omit<Habit, 'id' | 'createdAt' | 'completions'>) => void;
   toggleHabitCompletion: (habitId: string, date: Date) => void;
   isCompletedToday: (habitId: string) => boolean;
+  getCompletionForToday: (habitId: string) => HabitCompletion | undefined;
   getStreak: (habitId: string) => number;
   deleteHabit: (habitId: string) => void;
 }
@@ -77,12 +78,16 @@ export const HabitProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     );
   }, []);
 
-  const isCompletedToday = useCallback((habitId: string) => {
+  const getCompletionForToday = useCallback((habitId: string) => {
     const habit = habits.find(h => h.id === habitId);
-    if (!habit) return false;
+    if (!habit) return undefined;
     const today = new Date();
-    return habit.completions.some(c => isSameDay(parseISO(c.date), today));
+    return habit.completions.find(c => isSameDay(parseISO(c.date), today));
   }, [habits]);
+
+  const isCompletedToday = useCallback((habitId: string) => {
+    return !!getCompletionForToday(habitId);
+  }, [getCompletionForToday]);
   
   const getStreak = useCallback((habitId: string) => {
     const habit = habits.find(h => h.id === habitId);
@@ -98,7 +103,6 @@ export const HabitProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
     if (uniqueDates.length === 0) return 0;
     
-    let streak = 0;
     const today = startOfDay(new Date());
     const mostRecentCompletion = uniqueDates[0];
 
@@ -108,64 +112,24 @@ export const HabitProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       return 0;
     }
     
-    if (diffFromToday === 0) { // Completed today
+    let streak = 0;
+    if (diffFromToday === 0 || diffFromToday === 1) {
       streak = 1;
-    } else if (diffFromToday === 1) { // Completed yesterday
-      streak = 1;
-    }
-
-    for (let i = 1; i < uniqueDates.length; i++) {
-        const diff = differenceInCalendarDays(uniqueDates[i-1], uniqueDates[i]);
-        if (diff === 1) {
-            streak++;
-        } else {
-            break;
-        }
+      for (let i = 1; i < uniqueDates.length; i++) {
+          const diff = differenceInCalendarDays(uniqueDates[i-1], uniqueDates[i]);
+          if (diff === 1) {
+              streak++;
+          } else {
+              break;
+          }
+      }
     }
     
-    // If the most recent completion is not today, and the streak is only 1 from yesterday, it's not a 'current' streak.
-    // However, the logic above handles it. But let's refine. If most recent is yesterday, streak starts at 1.
-    // If not completed today, the count should be correct.
-    if(diffFromToday === 0) {
-        // Already counted 1 for today. The loop adds the rest.
-    } else if (diffFromToday === 1) {
-        // Already counted 1 for yesterday. Loop adds the rest.
-    } else {
-        return 0; // Streak is broken
-    }
-
-
-    // Correction: if not completed today, but yesterday, the streak is valid.
-    // But if loop starts, it needs a base.
-    if(uniqueDates.length === 0) return 0;
-
-    if (differenceInCalendarDays(today, uniqueDates[0]) > 1) {
-        return 0; // The streak is broken
-    }
-
-    streak = 1;
-    for (let i = 1; i < uniqueDates.length; i++) {
-        if (differenceInCalendarDays(uniqueDates[i-1], uniqueDates[i]) === 1) {
-            streak++;
-        } else {
-            break; // Streak is broken
-        }
-    }
-
-    // if the last completion was yesterday, and not today, the streak is still valid
-    if (isSameDay(uniqueDates[0], today)) {
-        return streak;
-    }
-    // if last completion was yesterday
-    if (differenceInCalendarDays(today, uniqueDates[0]) === 1) {
-        return streak;
-    }
-
     return streak;
   }, [habits]);
 
   return (
-    <HabitContext.Provider value={{ habits, loading, addHabit, deleteHabit, toggleHabitCompletion, isCompletedToday, getStreak }}>
+    <HabitContext.Provider value={{ habits, loading, addHabit, deleteHabit, toggleHabitCompletion, isCompletedToday, getCompletionForToday, getStreak }}>
       {children}
     </HabitContext.Provider>
   );

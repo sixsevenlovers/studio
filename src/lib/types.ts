@@ -1,12 +1,16 @@
 import type { ImagePlaceholder } from '@/lib/placeholder-images';
 
+export type HabitCompletion = {
+  date: string; // ISO 8601 format
+};
+
 export type Habit = {
   id: string;
   name: string;
   frequency: 'daily' | 'weekly' | 'weekdays' | 'weekends';
   timeOfDay: 'any' | 'morning' | 'afternoon' | 'evening';
   createdAt: string;
-  completions: { date: string }[];
+  completions: HabitCompletion[];
 };
 
 export type Achievement = {
